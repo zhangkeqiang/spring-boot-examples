@@ -13,6 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +36,7 @@ public class UserDetailRepositoryTests {
 		address.setCity("北京");
 		address.setProvince("北京");
 		address.setStreet("分钟寺");
-		addressRepository.save(address);
+//		addressRepository.save(address);
 	}
 
 	@Test
@@ -46,14 +49,18 @@ public class UserDetailRepositoryTests {
 		userDetail.setHobby("吃鸡游戏");
 		userDetail.setAge(28);
 		userDetail.setIntroduction("一个爱玩的人");
-		userDetailRepository.save(userDetail);
+//		userDetailRepository.save(userDetail);
 	}
 
 	@Test
 	public void testUserInfo()  {
-		List<UserInfo> userInfos=userDetailRepository.findUserInfo("钓鱼");
+		System.out.println("testUserInfo");
+		List<UserInfo> userInfos=userDetailRepository.findUserInfo("吃鸡游戏");
 		for (UserInfo userInfo:userInfos){
 			System.out.println("userInfo: "+userInfo.getUserName()+"-"+userInfo.getEmail()+"-"+userInfo.getHobby()+"-"+userInfo.getIntroduction());
 		}
+		
+		UserDetail userDetail = userDetailRepository.findByHobby("吃鸡游戏");
+		assertEquals(3,userDetail.getUserId());
 	}
 }
